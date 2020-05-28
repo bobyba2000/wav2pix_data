@@ -125,7 +125,11 @@ for index, path in enumerate(youtubers_path):
                     # Capture second-by-second
                     if idx % avg_fps == 0:
                         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                        audio_writer = wave.open(os.path.join(cropped_audio_path,
+			if ("_preprocessed.wav" in audio):
+                        	audio_writer = wave.open(os.path.join(cropped_audio_path,
+                                                              audio.replace("_preprocessed.wav", "_frame_"  + str(idx)+ ".wav")), 'w')
+			else:
+				audio_writer = wave.open(os.path.join(cropped_audio_path,
                                                               audio.replace(".wav", "_frame_"  + str(idx)+ ".wav")), 'w')
                         audio_writer.setparams((1, 2, 16000, 0, 'NONE', 'Uncompressed'))
                         faces, rej_level, weights = face_cascade.detectMultiScale3(
